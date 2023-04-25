@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To-Do List</title>
+	<style>
+		body {
+			font-family: Sylfaen, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+			;
+			background-color: #FEF9E7;
+		}
+		h1 {
+			text-align: center;
+			background-color: #8EC5FC;
+			padding: 20px;
+			border-radius: 12px;
+			box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.2);
+		}
+		input[type="text"] {
+			padding: 10px;
+			border: none;
+			border-radius: 3px;
+			width: 70%;
+			margin-right: 10px;
+		}
+		.add-button {
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			transition: background-color 0.2s, color 0.2s;
+		}
+		.add-button:hover {
+			background-color: #3E8E41;
+			color: #fff;
+		}
+		.add-button:hover {
+			background-color: blue;
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+		li {
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+			display: flex;
+			align-items: center;
+		}
+		li .task {
+			flex-grow: 1;
+			margin-bottom: 5px;
+		}
+		.completed {
+			text-decoration: line-through;
+			color: #aaa;
+		}
+		input[type="checkbox"] {
+			margin-right: 10px;
+			cursor: pointer;
+		}
+		.notebook-line {
+			height: 1px;
+			background-color: #ddd;
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body>
+	<h1>To-Do List</h1>
+	<input type="text" id="taskInput" placeholder="Add a new task...">
+	<button class="add-button" onclick="addTask()">Add</button>
+	<ul id="taskList">
+		
+	</ul>
+	
+	<script>
+		const taskInput = document.getElementById("taskInput");
+		const taskList = document.getElementById("taskList");
+
+		function addTask() {
+  if (taskInput.value !== "") {
+    const newTask = document.createElement("li");
+    const doneStatus = document.createElement("span");
+    doneStatus.innerHTML = "!Done";
+    doneStatus.style.display = "none";
+    doneStatus.style.marginRight = "10px";
+    newTask.appendChild(doneStatus);
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("change", toggleTask);
+    newTask.appendChild(checkbox);
+    const taskLabel = document.createElement("span");
+    taskLabel.classList.add("task");
+    taskLabel.innerHTML = taskInput.value;
+    newTask.appendChild(taskLabel);
+    const notebookLine = document.createElement("div");
+    notebookLine.classList.add("notebook-line");
+    newTask.appendChild(notebookLine);
+    const dateLabel = document.createElement("span");
+    dateLabel.classList.add("date");
+    const today = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    dateLabel.innerHTML = today.toLocaleDateString('en-US', dateOptions);
+    newTask.appendChild(dateLabel);
+    taskList.appendChild(newTask);
+    taskInput.value = "";
+  }
+}
+
+function toggleTask() {
+  const taskLabel = this.nextSibling;
+  const doneStatus = taskLabel.previousSibling;
+  doneStatus.style.display = this.checked ? "inline-block" : "none";
+  taskLabel.classList.toggle("completed");
+  doneStatus.style.color = this.checked ? "salmon" : "inherit";
+}
+
+	</script>
+</body>
+</html>
