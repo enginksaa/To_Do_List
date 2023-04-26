@@ -115,7 +115,18 @@ function toggleTask() {
   doneStatus.style.display = this.checked ? "inline-block" : "none";
   taskLabel.classList.toggle("completed");
   doneStatus.style.color = this.checked ? "salmon" : "inherit";
+  
+  if (this.checked) {
+    this.disabled = true;
+    const parentLi = this.parentElement;
+    const dateLabel = parentLi.querySelector(".date");
+    const today = new Date();
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    dateLabel.innerHTML = today.toLocaleDateString('en-US', dateOptions);
+  }
 }
+
+
 
 	</script>
 </body>
